@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <42run.hpp>
 
+#include <Camera.class.hpp>
+
 class Graphic {
 
 public:
@@ -15,13 +17,14 @@ public:
     void clear(void);
     void display(void);
 
-    eKey processInput(void);
+    eKey processInput(Camera * camera);
 
 
 private:
     Graphic(void);
 
     GLFWwindow* _window;
+
 
 };
 

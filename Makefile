@@ -13,10 +13,10 @@
 SHELL = bash
 UNAME = $(shell uname -s)
 CC = clang++
-CFLAGS = -std=c++11 -Wextra -Wall -Werror `pkg-config --cflags glfw3 glew` -I./includes -I ~/.brew/include
+CFLAGS = -std=c++11 -Wextra -Wall -Werror `pkg-config --cflags glfw3 glew` -I./includes -I ~/.brew/include -I ~/libs/include
 DEBUG = -g3 -fno-inline -DD_ERRORS_ON
 OBJDIR  = .objs
-LDFLAGS = `pkg-config --static --libs glfw3 glew`
+LDFLAGS = `pkg-config --static --libs glfw3 glew assimp` -L ~/libs/lib/ -lSOIL
 LISTDIR = srcs
 DIRSRC = srcs
 NAME = 42run

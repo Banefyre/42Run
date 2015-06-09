@@ -75,7 +75,7 @@ void Camera::moveCamera(float speed)
     this->_position.z += viewVector.z * speed;
 
 
-    //std::cout << "pos x : " << this->_position.x << " y : " << this->_position.y << " z : " << this->_position.z << " pitch : " << this->_pitch << " yaw : " << this->_yaw << std::endl;
+    std::cout << "pos x : " << this->_position.x << " y : " << this->_position.y << " z : " << this->_position.z << " pitch : " << this->_pitch << " yaw : " << this->_yaw << std::endl;
 }
 
 void Camera::setViewByMouse(float xOffset, float yOffset)

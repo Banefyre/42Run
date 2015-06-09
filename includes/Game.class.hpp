@@ -1,6 +1,8 @@
 #ifndef _42RUN_GAME_CLASS_HPP_
 #define _42RUN_GAME_CLASS_HPP_
 
+#include <Camera.class.hpp>
+
 class Game {
 
 public:
@@ -10,6 +12,7 @@ public:
 
 private:
     void _gameLoop(void);
+    Camera      _camera;
 
 };
 

@@ -81,7 +81,7 @@ void Graphic::display(void) {
     glfwSwapBuffers(this->_window);
 }
 
-eKey Graphic::processInput(void) {
+eKey Graphic::processInput(Camera * camera) {
 
     glfwPollEvents();
 
@@ -96,6 +96,20 @@ eKey Graphic::processInput(void) {
         return LEFT;
     if ( glfwGetKey(this->_window, GLFW_KEY_RIGHT) || glfwGetKey(this->_window, GLFW_KEY_D) )
         return RIGHT;
+
+
+    double mouseX, mouseY;
+
+    glfwGetCursorPos(this->_window, &mouseX, &mouseY);
+
+    if ( mouseX != 0 && mouseY != 0 ) {
+        camera->setViewByMouse((float)mouseX, (float)mouseY);
+    }
+
+    glfwSetCursorPos(this->_window, 0, 0);
+
+
+
 
     return NONE;
 }
