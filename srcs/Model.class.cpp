@@ -35,6 +35,10 @@ void Model::draw(Camera * camera) {
     GLint viewMatrixId = this->_shader.getVariable("view");
     GLint projectionMatrixId = this->_shader.getVariable("projection");
 
+    std::cout << modelMatrixId << std::endl;
+    std::cout << viewMatrixId << std::endl;
+    std::cout << projectionMatrixId << std::endl;
+
     this->_shader.setMatrix4(modelMatrixId, 1, GL_FALSE, glm::value_ptr(model));
     this->_shader.setMatrix4(viewMatrixId, 1, GL_FALSE, glm::value_ptr(view));
     this->_shader.setMatrix4(projectionMatrixId, 1, GL_FALSE, glm::value_ptr(projection));

@@ -99,6 +99,8 @@ GLint Shader::getVariable(std::string strVariable)
 	if(!this->_shaderProgramId)
 		return -1;
 
+	std::cout << "strVariable :" <<  strVariable << std::endl;
+
 	return glGetUniformLocation(this->_shaderProgramId, strVariable.c_str());
 }
 
