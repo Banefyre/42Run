@@ -8,5 +8,16 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
+enum eKey {
+
+    UP = 1,
+    DOWN,
+    LEFT,
+    RIGHT,
+    ESC,
+    NONE
+
+};
+
 
 #endif

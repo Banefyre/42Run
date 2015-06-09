@@ -1,11 +1,11 @@
 #include <GL/glew.h>
-#include <Graphic.class.hpp>
+#include <Game.class.hpp>
 
 
 int main(void) {
 
-    Graphic & g = Graphic::instance();
-    (void)g;
+    Game game;
+    (void)game;
 
     return 0;
 }

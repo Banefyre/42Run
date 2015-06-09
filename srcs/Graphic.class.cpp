@@ -1,7 +1,6 @@
 #include <Graphic.class.hpp>
 #include <stdio.h>
 #include <cstdlib>
-#include <42run.hpp>
 
 Graphic & Graphic::instance(void) {
     static Graphic inst;
@@ -28,7 +27,6 @@ Graphic::Graphic(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 
 
     this->_window = glfwCreateWindow(WIDTH, HEIGHT, "42run", NULL, NULL);
@@ -69,6 +67,31 @@ Graphic::Graphic(void) {
         std::exit(-1);
     }
 
+}
 
-    while (1) {}
+void Graphic::clear(void) {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Graphic::display(void) {
+    glfwSwapBuffers(this->_window);
+}
+
+eKey Graphic::processInput(void) {
+
+    glfwPollEvents();
+
+    if ( glfwGetKey(this->_window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->_window) != 0 )
+        return ESC;
+
+    if ( glfwGetKey(this->_window, GLFW_KEY_UP) || glfwGetKey(this->_window, GLFW_KEY_W) )
+        return UP;
+    if ( glfwGetKey(this->_window, GLFW_KEY_DOWN) || glfwGetKey(this->_window, GLFW_KEY_S) )
+        return DOWN;
+    if ( glfwGetKey(this->_window, GLFW_KEY_LEFT) || glfwGetKey(this->_window, GLFW_KEY_A) )
+        return LEFT;
+    if ( glfwGetKey(this->_window, GLFW_KEY_RIGHT) || glfwGetKey(this->_window, GLFW_KEY_D) )
+        return RIGHT;
+
+    return NONE;
 }
