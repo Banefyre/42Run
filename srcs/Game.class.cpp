@@ -18,12 +18,17 @@ void Game::_gameLoop(void) {
     Graphic & g = Graphic::instance();
     eKey input;
 
-    Model m ("models/nanosuit/nanosuit.obj", "shaders/Shader.vertex", "shaders/Shader.fragment");
+    Shader s;
+    s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
+    //Model m ("models/nanosuit/nanosuit.obj", &s);
+    Model m ("models/cluster/cluster.obj", &s);
+    //m.setScale(glm::vec3(0.2f));
+
 
 
     // Create the projection matrix from our camera
     //									 FOV		    Aspect Ratio			   Near / Far Planes
-    this->_camera.setPerspective(glm::radians(45.0f), WIDTH / (float)HEIGHT, 0.5f, 100.0f);
+    this->_camera.setPerspective(glm::radians(45.0f), WIDTH / (float)HEIGHT, 0.01f, 100.0f);
 
 
     //					        Position	         Yaw	 Pitch

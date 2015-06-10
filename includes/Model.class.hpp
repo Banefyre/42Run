@@ -17,7 +17,7 @@
 class Model {
 
 public:
-    Model(std::string path, std::string vtxShader, std::string frgShader);
+    Model(std::string path, Shader * s);
     ~Model(void);
 
     void draw(Camera *camera);
@@ -32,7 +32,7 @@ private:
     std::vector<Mesh>    _meshes;
     std::vector<Texture> _textures_loaded;
 
-    Shader               _shader;
+    Shader *             _shader;
 
     glm::vec3 _position;										// The model's position
     glm::vec3 _rotation;										// The model's rotation

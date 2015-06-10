@@ -4,11 +4,12 @@
 
 #include <42run.hpp>
 
-Model::Model(std::string path, std::string vtxShader, std::string frgShader){
+Model::Model(std::string path, Shader * s){
 
-    this->_shader.initialize(vtxShader, frgShader);
-    this->_scale = glm::vec3(0.2f, 0.2f, 0.2f);
-    this->_position = glm::vec3(0.0f, -1.75f, 0.0f);
+    this->_shader = s;
+
+    this->_scale = glm::vec3(1.0f, 1.0f, 1.0f);
+    this->_position = glm::vec3(0.0f, 0.0f, 0.0f);
     this->_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     this->loadModel(path);
 }
@@ -19,7 +20,7 @@ Model::~Model(void) {
 
 void Model::draw(Camera * camera) {
 
-    this->_shader.turnOn();
+    this->_shader->turnOn();
 
 
     // Transformation matrices
@@ -35,26 +36,28 @@ void Model::draw(Camera * camera) {
 //    model = glm::rotate(model, this->_rotation.y, glm::vec3(0, 1, 0));	// y-axis
 //    model = glm::rotate(model, this->_rotation.z, glm::vec3(0, 0, 1));	// z-axis
 
-    GLint modelMatrixId = this->_shader.getVariable("model");
-    GLint viewMatrixId = this->_shader.getVariable("view");
-    GLint projectionMatrixId = this->_shader.getVariable("projection");
+    GLint modelMatrixId = this->_shader->getVariable("model");
+    GLint viewMatrixId = this->_shader->getVariable("view");
+    GLint projectionMatrixId = this->_shader->getVariable("projection");
 
 //    std::cout << modelMatrixId << std::endl;
 //    std::cout << viewMatrixId << std::endl;
 //    std::cout << projectionMatrixId << std::endl;
 
-    this->_shader.setMatrix4(modelMatrixId, 1, GL_FALSE, glm::value_ptr(model));
-    this->_shader.setMatrix4(viewMatrixId, 1, GL_FALSE, glm::value_ptr(view));
-    this->_shader.setMatrix4(projectionMatrixId, 1, GL_FALSE, glm::value_ptr(projection));
+    this->_shader->setMatrix4(modelMatrixId, 1, GL_FALSE, glm::value_ptr(model));
+    this->_shader->setMatrix4(viewMatrixId, 1, GL_FALSE, glm::value_ptr(view));
+    this->_shader->setMatrix4(projectionMatrixId, 1, GL_FALSE, glm::value_ptr(projection));
 
 
     for(GLuint i = 0; i < this->_meshes.size(); i++)
         this->_meshes[i].draw();
 
-    this->_shader.turnOff();
+    this->_shader->turnOff();
 }
 
 void Model::loadModel(std::string path) {
+
+    std::cout << "open model : " << path << std::endl;
 
     // Read file via ASSIMP
     Assimp::Importer importer;
@@ -76,7 +79,6 @@ void Model::loadModel(std::string path) {
 
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
-
     std::cout << "process node" << std::endl;
 
     // Process each mesh located at the current node
@@ -86,7 +88,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
         // The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         Mesh m = this->processMesh(mesh, scene);
-        m.setShader(&this->_shader);
+        m.setShader(this->_shader);
         this->_meshes.push_back(m);
     }
     // After we've processed all of the meshes (if any) we then recursively process each of the children nodes
@@ -100,7 +102,6 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-
     std::cout << "process mesh" << std::endl;
 
     // Data to fill
@@ -137,6 +138,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
             vertex.texCoords = glm::vec2(0.0f, 0.0f);
         vertices.push_back(vertex);
     }
+
+    std::cout << "test1" << std::endl;
+
     // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for(GLuint i = 0; i < mesh->mNumFaces; i++)
     {
@@ -145,6 +149,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         for(GLuint j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
     }
+
+    std::cout << "test2" << std::endl;
+
     // Process materials
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
     // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
@@ -225,4 +232,12 @@ GLint Model::TextureFromFile(const char* path, std::string directory)
     glBindTexture(GL_TEXTURE_2D, 0);
     SOIL_free_image_data(image);
     return textureID;
+}
+
+void Model::setScale(glm::vec3 scale) {
+    this->_scale = scale;
+}
+
+void Model::setPosition(glm::vec3 pos) {
+    this->_position = pos;
 }
