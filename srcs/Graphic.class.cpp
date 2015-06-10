@@ -69,7 +69,7 @@ Graphic::Graphic(void) {
 
     glViewport(0, 0, WIDTH, HEIGHT);
     glEnable(GL_DEPTH_TEST);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -86,16 +86,16 @@ eKey Graphic::processInput(Camera * camera) {
     glfwPollEvents();
 
     if ( glfwGetKey(this->_window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->_window) != 0 )
-        return ESC;
+        return KEYESC;
 
     if ( glfwGetKey(this->_window, GLFW_KEY_UP) || glfwGetKey(this->_window, GLFW_KEY_W) )
-        return UP;
+        return KEYUP;
     if ( glfwGetKey(this->_window, GLFW_KEY_DOWN) || glfwGetKey(this->_window, GLFW_KEY_S) )
-        return DOWN;
+        return KEYDOWN;
     if ( glfwGetKey(this->_window, GLFW_KEY_LEFT) || glfwGetKey(this->_window, GLFW_KEY_A) )
-        return LEFT;
+        return KEYLEFT;
     if ( glfwGetKey(this->_window, GLFW_KEY_RIGHT) || glfwGetKey(this->_window, GLFW_KEY_D) )
-        return RIGHT;
+        return KEYRIGHT;
 
 
     double mouseX, mouseY;
@@ -111,5 +111,6 @@ eKey Graphic::processInput(Camera * camera) {
 
 
 
-    return NONE;
+
+    return KEYNONE;
 }

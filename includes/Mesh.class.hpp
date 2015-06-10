@@ -36,13 +36,13 @@ Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Text
 
 
 void draw(void);
-void setShader(Shader & s);
+void setShader(Shader * s);
 
 private:
     /*  Render data  */
     GLuint VAO, VBO, EBO;
 
-    Shader _shader;
+    Shader * _shader;
     void _setupMesh(void);
 
 };

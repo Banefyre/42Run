@@ -10,12 +10,12 @@
 
 enum eKey {
 
-    UP = 1,
-    DOWN,
-    LEFT,
-    RIGHT,
-    ESC,
-    NONE
+    KEYUP = 1,
+    KEYDOWN,
+    KEYLEFT,
+    KEYRIGHT,
+    KEYESC,
+    KEYNONE
 
 };
 

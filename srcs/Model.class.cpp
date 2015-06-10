@@ -2,12 +2,14 @@
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <42run.hpp>
+
 Model::Model(std::string path, std::string vtxShader, std::string frgShader){
 
     this->_shader.initialize(vtxShader, frgShader);
-    this->_scale = vec3(1.0f, 1.0f, 1.0f);
-    this->_position = vec3(0.0f, 0.0f, 0.0f);
-    this->_rotation = vec3(0.0f, 0.0f, 0.0f);
+    this->_scale = glm::vec3(0.2f, 0.2f, 0.2f);
+    this->_position = glm::vec3(0.0f, -1.75f, 0.0f);
+    this->_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     this->loadModel(path);
 }
 
@@ -24,20 +26,22 @@ void Model::draw(Camera * camera) {
     glm::mat4 projection = camera->getProjectionMatrix();
     glm::mat4 view = camera->getViewMatrix();
 
-    glm::mat4 model = translate(glm::mat4(1.0f), this->_position);
-    model = glm::scale(model, this->_scale);
 
-    model = glm::rotate(model, this->_rotation.x, glm::vec3(1, 0, 0));	// x-axis
-    model = glm::rotate(model, this->_rotation.y, glm::vec3(0, 1, 0));	// y-axis
-    model = glm::rotate(model, this->_rotation.z, glm::vec3(0, 0, 1));	// z-axis
+    glm::mat4 model;
+    model = glm::translate(model, this->_position);
+    model = glm::scale(model, this->_scale);
+//
+//    model = glm::rotate(model, this->_rotation.x, glm::vec3(1, 0, 0));	// x-axis
+//    model = glm::rotate(model, this->_rotation.y, glm::vec3(0, 1, 0));	// y-axis
+//    model = glm::rotate(model, this->_rotation.z, glm::vec3(0, 0, 1));	// z-axis
 
     GLint modelMatrixId = this->_shader.getVariable("model");
     GLint viewMatrixId = this->_shader.getVariable("view");
     GLint projectionMatrixId = this->_shader.getVariable("projection");
 
-    std::cout << modelMatrixId << std::endl;
-    std::cout << viewMatrixId << std::endl;
-    std::cout << projectionMatrixId << std::endl;
+//    std::cout << modelMatrixId << std::endl;
+//    std::cout << viewMatrixId << std::endl;
+//    std::cout << projectionMatrixId << std::endl;
 
     this->_shader.setMatrix4(modelMatrixId, 1, GL_FALSE, glm::value_ptr(model));
     this->_shader.setMatrix4(viewMatrixId, 1, GL_FALSE, glm::value_ptr(view));
@@ -73,6 +77,8 @@ void Model::loadModel(std::string path) {
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
 
+    std::cout << "process node" << std::endl;
+
     // Process each mesh located at the current node
     for(GLuint i = 0; i < node->mNumMeshes; i++)
     {
@@ -80,7 +86,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
         // The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         Mesh m = this->processMesh(mesh, scene);
-        m.setShader(this->_shader);
+        m.setShader(&this->_shader);
         this->_meshes.push_back(m);
     }
     // After we've processed all of the meshes (if any) we then recursively process each of the children nodes
@@ -94,6 +100,8 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
+
+    std::cout << "process mesh" << std::endl;
 
     // Data to fill
     std::vector<Vertex> vertices;

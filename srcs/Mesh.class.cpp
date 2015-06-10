@@ -66,13 +66,13 @@ void Mesh::draw(void) {
         number = ss.str();
         // Now set the sampler to the correct texture unit
 
-        this->_shader.setFloat(this->_shader.getVariable(name + number), i);
+        this->_shader->setFloat(this->_shader->getVariable(name + number), i);
         // And finally bind the texture
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
     }
 
     // Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
-    this->_shader.setFloat(this->_shader.getVariable("material.shininess"), 16.0f);
+    this->_shader->setFloat(this->_shader->getVariable("material.shininess"), 16.0f);
 
     // Draw mesh
     glBindVertexArray(this->VAO);
@@ -87,7 +87,7 @@ void Mesh::draw(void) {
     }
 }
 
-void Mesh::setShader(Shader & s) {
+void Mesh::setShader(Shader * s) {
         this->_shader = s;
 };
 

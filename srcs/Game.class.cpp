@@ -27,11 +27,12 @@ void Game::_gameLoop(void) {
 
 
     //					        Position	         Yaw	 Pitch
-    this->_camera.positionCamera(0, 0, 10,		0,		0);
+    this->_camera.positionCamera(0, 0, 3,		0,		0);
 
 
 
-    while ((input = g.processInput(&this->_camera)) && input != ESC) {
+
+    while ((input = g.processInput(&this->_camera)) && input != KEYESC) {
 
         TimeManager::instance().calculateFrameRate(false);
 
@@ -40,22 +41,21 @@ void Game::_gameLoop(void) {
 
         switch ( input )
         {
-            case UP:
+            case KEYUP:
                 this->_camera.moveCamera(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
                 break;
-            case DOWN:
+            case KEYDOWN:
                 this->_camera.moveCamera(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
                 break;
-            case LEFT:
+            case KEYLEFT:
                 this->_camera.strafe(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
                 break;
-            case RIGHT:
+            case KEYRIGHT:
                 this->_camera.strafe(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
                 break;
             default:
                 break;
         }
-
 
 
         m.draw(&this->_camera);

@@ -67,6 +67,7 @@ void Shader::initialize(std::string strVertexFile, std::string strFragmentFile)
 	glShaderSource(this->_vertexShaderId, 1, &szVShader, NULL);
 	glShaderSource(this->_fragmentShaderId, 1, &szFShader, NULL);
 
+
 	// Now we actually compile the shader code
 	glCompileShader(this->_vertexShaderId);
 	glCompileShader(this->_fragmentShaderId);
@@ -74,6 +75,8 @@ void Shader::initialize(std::string strVertexFile, std::string strFragmentFile)
 
 	// Next we create a program object to represent our shaders
     this->_shaderProgramId = glCreateProgram();
+
+	std::cout << "Shader init with programm id : " << _shaderProgramId << std::endl;
 
 	// We attach each shader we just loaded to our program object
 	glAttachShader(this->_shaderProgramId, this->_vertexShaderId);
@@ -84,7 +87,6 @@ void Shader::initialize(std::string strVertexFile, std::string strFragmentFile)
 	glLinkProgram(this->_shaderProgramId);
 
 	errorCheckValue = glGetError();
-
 
 	if ( errorCheckValue != GL_NO_ERROR )
 	{
@@ -99,7 +101,7 @@ GLint Shader::getVariable(std::string strVariable)
 	if(!this->_shaderProgramId)
 		return -1;
 
-	std::cout << "strVariable :" <<  strVariable << std::endl;
+	//std::cout << "strVariable :" <<  strVariable.c_str() << " shader programm id : " << _shaderProgramId << std::endl;
 
 	return glGetUniformLocation(this->_shaderProgramId, strVariable.c_str());
 }
