@@ -71,6 +71,9 @@ Graphic::Graphic(void) {
     glEnable(GL_DEPTH_TEST);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    //wireframe
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 }
 
 void Graphic::clear(void) {
@@ -83,19 +86,20 @@ void Graphic::display(void) {
 
 eKey Graphic::processInput(Camera * camera) {
 
+    eKey input = KEYNONE;
+
     glfwPollEvents();
 
     if ( glfwGetKey(this->_window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->_window) != 0 )
-        return KEYESC;
-
+        input =  KEYESC;
     if ( glfwGetKey(this->_window, GLFW_KEY_UP) || glfwGetKey(this->_window, GLFW_KEY_W) )
-        return KEYUP;
+        input =  KEYUP;
     if ( glfwGetKey(this->_window, GLFW_KEY_DOWN) || glfwGetKey(this->_window, GLFW_KEY_S) )
-        return KEYDOWN;
+        input =  KEYDOWN;
     if ( glfwGetKey(this->_window, GLFW_KEY_LEFT) || glfwGetKey(this->_window, GLFW_KEY_A) )
-        return KEYLEFT;
+        input =  KEYLEFT;
     if ( glfwGetKey(this->_window, GLFW_KEY_RIGHT) || glfwGetKey(this->_window, GLFW_KEY_D) )
-        return KEYRIGHT;
+        input =  KEYRIGHT;
 
 
     double mouseX, mouseY;
@@ -109,8 +113,5 @@ eKey Graphic::processInput(Camera * camera) {
     glfwSetCursorPos(this->_window, 0, 0);
 
 
-
-
-
-    return KEYNONE;
+    return input;
 }
