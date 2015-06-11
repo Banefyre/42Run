@@ -7,10 +7,6 @@
 Model::Model(std::string path, Shader * s){
 
     this->_shader = s;
-
-    this->_scale = glm::vec3(1.0f, 1.0f, 1.0f);
-    this->_position = glm::vec3(0.0f, 0.0f, 0.0f);
-    this->_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     this->loadModel(path);
 }
 
@@ -18,7 +14,7 @@ Model::~Model(void) {
 
 }
 
-void Model::draw(Camera * camera) {
+void Model::draw(Camera * camera, glm::vec3 & position, glm::vec3 & scale, glm::vec3 & rotation) {
 
     this->_shader->turnOn();
 
@@ -29,12 +25,12 @@ void Model::draw(Camera * camera) {
 
 
     glm::mat4 model;
-    model = glm::translate(model, this->_position);
-    model = glm::scale(model, this->_scale);
+    model = glm::translate(model, position);
+    model = glm::scale(model, scale);
 //
-//    model = glm::rotate(model, this->_rotation.x, glm::vec3(1, 0, 0));	// x-axis
-//    model = glm::rotate(model, this->_rotation.y, glm::vec3(0, 1, 0));	// y-axis
-//    model = glm::rotate(model, this->_rotation.z, glm::vec3(0, 0, 1));	// z-axis
+    model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));	// x-axis
+    model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));	// y-axis
+    model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));	// z-axis
 
     GLint modelMatrixId = this->_shader->getVariable("model");
     GLint viewMatrixId = this->_shader->getVariable("view");
@@ -57,8 +53,6 @@ void Model::draw(Camera * camera) {
 
 void Model::loadModel(std::string path) {
 
-    std::cout << "open model : " << path << std::endl;
-
     // Read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -75,11 +69,8 @@ void Model::loadModel(std::string path) {
     this->processNode(scene->mRootNode, scene);
 }
 
-
-
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
-    std::cout << "process node" << std::endl;
 
     // Process each mesh located at the current node
     for(GLuint i = 0; i < node->mNumMeshes; i++)
@@ -99,11 +90,8 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 }
 
-
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::cout << "process mesh" << std::endl;
-
     // Data to fill
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
@@ -139,8 +127,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         vertices.push_back(vertex);
     }
 
-    std::cout << "test1" << std::endl;
-
     // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for(GLuint i = 0; i < mesh->mNumFaces; i++)
     {
@@ -149,8 +135,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         for(GLuint j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
     }
-
-    std::cout << "test2" << std::endl;
 
     // Process materials
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -212,9 +196,6 @@ GLint Model::TextureFromFile(const char* path, std::string directory)
     //Generate texture ID and load texture data
     std::string filename(path);
     filename = directory + '/' + filename;
-
-    std::cout << filename << std::endl;
-
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height;
@@ -232,12 +213,4 @@ GLint Model::TextureFromFile(const char* path, std::string directory)
     glBindTexture(GL_TEXTURE_2D, 0);
     SOIL_free_image_data(image);
     return textureID;
-}
-
-void Model::setScale(glm::vec3 scale) {
-    this->_scale = scale;
-}
-
-void Model::setPosition(glm::vec3 pos) {
-    this->_position = pos;
 }

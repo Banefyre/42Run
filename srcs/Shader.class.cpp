@@ -72,11 +72,8 @@ void Shader::initialize(std::string strVertexFile, std::string strFragmentFile)
 	glCompileShader(this->_vertexShaderId);
 	glCompileShader(this->_fragmentShaderId);
 
-
 	// Next we create a program object to represent our shaders
     this->_shaderProgramId = glCreateProgram();
-
-	std::cout << "Shader init with programm id : " << _shaderProgramId << std::endl;
 
 	// We attach each shader we just loaded to our program object
 	glAttachShader(this->_shaderProgramId, this->_vertexShaderId);

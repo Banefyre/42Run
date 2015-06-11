@@ -6,6 +6,7 @@
 #include <Camera.class.hpp>
 #include <TextManager.class.hpp>
 #include <TextManager.class.hpp>
+#include <glm/glm.hpp>
 
 Game::Game(void) {
     this->_gameLoop();
@@ -23,11 +24,10 @@ void Game::_gameLoop(void) {
     Shader s;
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
     //Model m ("models/nanosuit/nanosuit.obj", &s);
-    Model m ("models/cluster2/cluster2.obj", &s);
+    Model m ("models/cluster/cluster.obj", &s);
     TextManager & tm = TextManager::instance();
 
     //m.setScale(glm::vec3(0.2f));
-
 
 
     // Create the projection matrix from our camera
@@ -39,6 +39,14 @@ void Game::_gameLoop(void) {
     this->_camera.positionCamera(0, 0, 3,		0,		0);
 
 
+    glm::vec3 position(0.0f);
+    glm::vec3 scale(1.0f);
+    glm::vec3 rotation(0.0f);
+
+
+
+    //rotate model 180deg
+    //m.rotateY(glm::radians(180.0f));
 
 
     while ((input = g.processInput(&this->_camera)) && input != KEYESC) {
@@ -46,6 +54,7 @@ void Game::_gameLoop(void) {
         TimeManager::instance().calculateFrameRate(false);
 
         g.clear();
+
 
 
         switch ( input )
@@ -67,7 +76,7 @@ void Game::_gameLoop(void) {
         }
 
 
-        m.draw(&this->_camera);
+        m.draw(&this->_camera, position, scale, rotation);
 
         tm.print("Hello world", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 

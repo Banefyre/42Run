@@ -20,12 +20,7 @@ public:
     Model(std::string path, Shader * s);
     ~Model(void);
 
-    void draw(Camera *camera);
-
-
-    void setPosition(glm::vec3 pos);
-    void setRotation(glm::vec3 rot);
-    void setScale(glm::vec3 scale);
+    void draw(Camera *camera, glm::vec3 & position, glm::vec3 & scale, glm::vec3 & rotation);
 
 private:
     std::string          _directory;
@@ -33,10 +28,6 @@ private:
     std::vector<Texture> _textures_loaded;
 
     Shader *             _shader;
-
-    glm::vec3 _position;										// The model's position
-    glm::vec3 _rotation;										// The model's rotation
-    glm::vec3 _scale;										// The model's scale
 
 
     void loadModel(std::string path);
