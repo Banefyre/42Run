@@ -4,6 +4,8 @@
 #include <42run.hpp>
 #include <Model.class.hpp>
 #include <Camera.class.hpp>
+#include <TextManager.class.hpp>
+#include <TextManager.class.hpp>
 
 Game::Game(void) {
     this->_gameLoop();
@@ -21,7 +23,9 @@ void Game::_gameLoop(void) {
     Shader s;
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
     //Model m ("models/nanosuit/nanosuit.obj", &s);
-    Model m ("models/cluster/cluster.obj", &s);
+    Model m ("models/cluster2/cluster2.obj", &s);
+    TextManager & tm = TextManager::instance();
+
     //m.setScale(glm::vec3(0.2f));
 
 
@@ -64,6 +68,8 @@ void Game::_gameLoop(void) {
 
 
         m.draw(&this->_camera);
+
+        tm.print("Hello world", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 
         g.display();
     }
