@@ -14,7 +14,7 @@ void Player::draw(Camera *camera) {
 
     if (this->_isJumpingUp) {
         this->_position.y += TimeManager::instance().deltaTime * 2.0f;
-        this->_rotation.y += (glm::radians(360.0f) * TimeManager::instance().deltaTime) * 1.065f;
+        this->_rotation.y += (glm::radians(360.0f) * TimeManager::instance().deltaTime) * 1.065f * 2.0f;
         if (this->_position.y > 0.4f) {
             this->_position.y = 0.4f;
             this->_isJumpingUp = false;
@@ -25,7 +25,7 @@ void Player::draw(Camera *camera) {
 
     } else if (this->_isJumpingDown) {
         this->_position.y -= TimeManager::instance().deltaTime * 2.25f;
-        this->_rotation.y += (glm::radians(360.0f) * TimeManager::instance().deltaTime) * 1.065f;
+        this->_rotation.y += (glm::radians(360.0f) * TimeManager::instance().deltaTime) * 1.065f * 2.0f;
 
         if (this->_position.y <= -0.55f) {
             this->_position.y = -0.55f;
@@ -44,7 +44,12 @@ void Player::draw(Camera *camera) {
 
 void Player::moveLeft(void) {
     if (this->_position.x > -0.82f) {
-        this->_position.x -= TimeManager::instance().deltaTime * 2.0f;
+        if (this->_isJumpingUp || this->_isJumpingDown) {
+            this->_position.x -= TimeManager::instance().deltaTime;
+        } else {
+            this->_position.x -= TimeManager::instance().deltaTime * 2.0f;
+        }
+
         if (this->_position.x < -0.82f) {
             this->_position.x = -0.82f;
         }
@@ -54,7 +59,11 @@ void Player::moveLeft(void) {
 
 void Player::moveRight(void) {
     if (this->_position.x < 0.82f) {
-        this->_position.x += TimeManager::instance().deltaTime * 2.0f;
+        if (this->_isJumpingUp || this->_isJumpingDown) {
+            this->_position.x += TimeManager::instance().deltaTime;
+        } else {
+            this->_position.x += TimeManager::instance().deltaTime * 2.0f;
+        }
         if (this->_position.x > 0.82f) {
             this->_position.x = 0.82f;
         }

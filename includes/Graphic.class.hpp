@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <42run.hpp>
+#include <Player.class.hpp>
 
 #include <Camera.class.hpp>
 
@@ -19,7 +20,7 @@ public:
     void clear(void);
     void display(void);
 
-    eKey processInput(Camera * camera);
+    bool processInput(Camera * camera, Player * player);
 
 
 private:

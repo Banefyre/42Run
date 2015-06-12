@@ -27,8 +27,6 @@ Game::~Game(void) {
 void Game::startGame(void) {
 
     Graphic & g = Graphic::instance();
-    eKey input;
-
 
     TextManager & tm = TextManager::instance();
     tm.print("Loading Models, Textures and Shaders...", 245.0f, 340.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
@@ -51,42 +49,23 @@ void Game::startGame(void) {
         this->_sections.push_back(s);
     }
 
+
+    double distance = 0;
+
     //									 FOV		    Aspect Ratio			   Near / Far Planes
     this->_camera.setPerspective(glm::radians(45.0f), WIDTH / (float)HEIGHT, 0.01f, 100.0f);
     //					        Position	         Yaw	 Pitch
     this->_camera.positionCamera(0, 0.9f, 3.0f,		0.0f,		0.2f);
 
 
-    while ((input = g.processInput(&this->_camera)) && input != KEYESC) {
+    while (g.processInput(&this->_camera, &player)) {
 
         TimeManager::instance().calculateFrameRate(false);
 
         g.clear();
 
-        switch ( input )
-        {
-            case KEYUP:
-                this->_camera.moveCamera(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
-                break;
-            case KEYDOWN:
-                this->_camera.moveCamera(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
-                break;
-            case KEYLEFT:
-                //this->_camera.strafe(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
-                player.moveLeft();
-                break;
-            case KEYRIGHT:
-                //this->_camera.strafe(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
-                player.moveRight();
-                break;
-            case KEYSPACE:
-                player.jump();
-            default:
-                break;
-        }
-
         std::list<Section *>::iterator it;
-        for (it = this->_sections.begin() ; it != this->_sections.end() ; it ++) {
+        for (it = this->_sections.begin() ; it != this->_sections.end() ; ++it) {
             (*it)->move();
             (*it)->draw(&this->_camera);
         }
@@ -106,7 +85,9 @@ void Game::startGame(void) {
             this->_sections.push_back(s);
         }
 
-        //tm.print("Hello world", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+        distance += TimeManager::instance().deltaTime * 5.0f;
+
+        tm.print(std::to_string((int)distance), 15.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
         g.display();
     }
