@@ -28,12 +28,17 @@ void Game::startGame(void) {
     Graphic & g = Graphic::instance();
     eKey input;
 
+
+    TextManager & tm = TextManager::instance();
+    tm.print("Loading Models, Textures and Shaders...", 245.0f, 340.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+    g.display();
+
     Shader s;
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
     //Model m ("models/nanosuit/nanosuit.obj", &s);
 
     Model m ("models/cluster/cluster.obj", &s);
-    //TextManager & tm = TextManager::instance();
+
 
 
     glm::vec3 startPos(0.0f);
@@ -48,7 +53,7 @@ void Game::startGame(void) {
     //									 FOV		    Aspect Ratio			   Near / Far Planes
     this->_camera.setPerspective(glm::radians(45.0f), WIDTH / (float)HEIGHT, 0.01f, 100.0f);
     //					        Position	         Yaw	 Pitch
-    this->_camera.positionCamera(0, 0, 3,		0,		0);
+    this->_camera.positionCamera(0, 0.9f, 3.0f,		0.0f,		0.2f);
 
 
     while ((input = g.processInput(&this->_camera)) && input != KEYESC) {

@@ -16,7 +16,6 @@ class Section
 
     private:
         Model       *_m;
-        Section(void);
         glm::vec3   _position;
         glm::vec3   _scale;
         glm::vec3   _rotation;

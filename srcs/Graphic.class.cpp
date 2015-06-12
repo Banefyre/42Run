@@ -74,6 +74,10 @@ Graphic::Graphic(void) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
     //wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -81,6 +85,7 @@ Graphic::Graphic(void) {
 
 void Graphic::clear(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
 void Graphic::display(void) {
@@ -121,5 +126,4 @@ eKey Graphic::processInput(Camera * camera) {
 
 void Graphic::terminate(void) {
     glfwTerminate();
-    std::cout << "graphic terminate" << std::endl;
 }

@@ -8,7 +8,6 @@
 #include <glm/glm.hpp>									// Used for the GLM math library
 #include <glm/gtc/matrix_transform.hpp>					// Used for the GLM math library
 #include <glm/gtx/transform2.hpp>						// Used for the GLM math library
-using namespace glm;
 
 
 // This is our bare-bones Camera class to manage user movement in our 3D scene.
@@ -20,15 +19,15 @@ class Camera
         Camera(void);
         ~Camera(void);
 
-        mat4 setPerspective(float fov, float aspectRatio, float nearPlane, float farPlane);
-        mat4 getRotationMatrix(void);
-        mat4 getProjectionMatrix(void);
-        mat4 getViewMatrix(void);
-        void setPosition(vec3 position);
-        vec3 getPosition(void);
-        vec3 getView(void);
-        vec3 getUp(void);
-        vec3 getRight(void);
+        glm::mat4 setPerspective(float fov, float aspectRatio, float nearPlane, float farPlane);
+        glm::mat4 getRotationMatrix(void);
+        glm::mat4 getProjectionMatrix(void);
+        glm::mat4 getViewMatrix(void);
+        void setPosition(glm::vec3 position);
+        glm::vec3 getPosition(void);
+        glm::vec3 getView(void);
+        glm::vec3 getUp(void);
+        glm::vec3 getRight(void);
         float getYaw(void);
         void setYaw(float yaw);
         float getPitch(void);
@@ -44,8 +43,8 @@ class Camera
 
     protected:
 
-        mat4 _projectionMatrix;								// The camera's projection matrix
-        vec3 _position;										// The camera's position
+        glm::mat4 _projectionMatrix;								// The camera's projection matrix
+        glm::vec3 _position;										// The camera's position
         float _speed = 5.0;								// The camera's speed that is used with a time slice
         float _yaw = 0;										// The horizontal rotation angle (in radians), y-axis
         float _pitch = 0;									// The vertical rotation angle (in radians, x-axis

@@ -94,7 +94,6 @@ TextManager::TextManager(void) {
 }
 
 TextManager::~TextManager(void) {
-    std::cout << "delete text manager" << std::endl;
     return ;
 }
 
