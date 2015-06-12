@@ -9,7 +9,8 @@ Section::Section(Model *model, eSection type, Model * obstacle) : _m(model), _ob
     static std::map<eSection, INIT> map = {
             { NABOO, &Section::_initNaboo },
             { DRAGON, &Section::_initDragon },
-            { KRABBS, &Section::_initKrabbs }
+            { KRABBS, &Section::_initKrabbs },
+            { SONIC, &Section::_initSonic }
     };
 
     INIT ft = map[type];
@@ -31,7 +32,8 @@ void Section::setPosition(glm::vec3 pos)
     static std::map<eSection, POS> map = {
             { NABOO, &Section::_posNaboo },
             { DRAGON, &Section::_posDragon },
-            { KRABBS, &Section::_posKrabbs }
+            { KRABBS, &Section::_posKrabbs },
+            { SONIC, &Section::_posSonic }
     };
 
     POS ft = map[_type];
@@ -62,17 +64,22 @@ void Section::draw(Camera *camera)
 }
 
 void Section::_initNaboo(void) {
-    this->_oScale = glm::vec3(1.0f);
-    this->_oRotation = glm::vec3(0.0f);
+    this->_oScale = glm::vec3(0.4f);
+    this->_oRotation = glm::vec3(0.0f, glm::radians(85.0f), 0.0f);
 }
 
 void Section::_initKrabbs(void) {
-    this->_oScale = glm::vec3(1.0f);
+    this->_oScale = glm::vec3(0.5f);
     this->_oRotation = glm::vec3(0.0f);
 }
 
 void Section::_initDragon(void) {
     this->_oScale = glm::vec3(1.0f);
+    this->_oRotation = glm::vec3(0.0f);
+}
+
+void Section::_initSonic(void) {
+    this->_oScale = glm::vec3(0.5f);
     this->_oRotation = glm::vec3(0.0f);
 }
 
@@ -86,13 +93,20 @@ void Section::_posDragon(glm::vec3 pos) {
 void Section::_posNaboo(glm::vec3 pos) {
 
     this->_oPosition = pos;
-    //this->_oPosition.x -= 1.0f;
-
+    this->_oPosition.y -= 0.45f;
 }
 
 void Section::_posKrabbs(glm::vec3 pos) {
 
     this->_oPosition = pos;
-    //this->_oPosition.x -= 1.0f;
+    this->_oPosition.y -= 0.55f;
+    this->_oPosition.x -= 0.5f;
+
+}
+
+void Section::_posSonic(glm::vec3 pos) {
+
+    this->_oPosition = pos;
+    this->_oPosition.y -= 0.55f;
 
 }

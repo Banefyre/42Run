@@ -27,8 +27,8 @@ Game::~Game(void) {
 
 eSection Game::randSection(void)
 {
-    int section = (rand() % 3) + 1;
-    
+    int section = (rand() % 4) + 1;
+
     return static_cast<eSection >(section);
 }
 
@@ -47,11 +47,13 @@ void Game::startGame(void) {
     Model k ("models/krabbs/krabbs.obj", &s);
     Model f ("models/fighter/fighter.obj", &s);
     Model d ("models/dragon/dragon.obj", &s);
+    Model sn ("models/sonic/sonic.obj", &s);
 
     std::map<eSection , Model *> models;
     models[NABOO] = &f;
     models[KRABBS] = &k;
     models[DRAGON] = &d;
+    models[SONIC] = &sn;
 
     Player player(&playerModel);
 

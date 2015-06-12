@@ -31,10 +31,12 @@ class Section
         void    _initNaboo(void);
         void    _initKrabbs(void);
         void    _initDragon(void);
+        void    _initSonic(void);
 
         void    _posNaboo(glm::vec3 pos);
         void    _posKrabbs(glm::vec3 pos);
         void    _posDragon(glm::vec3 pos);
+        void    _posSonic(glm::vec3 pos);
 
 };
 
