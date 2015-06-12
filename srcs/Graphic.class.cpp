@@ -1,6 +1,7 @@
 #include <Graphic.class.hpp>
 #include <stdio.h>
 #include <cstdlib>
+#include <iostream>
 
 Graphic & Graphic::instance(void) {
     static Graphic inst;
@@ -8,7 +9,6 @@ Graphic & Graphic::instance(void) {
 }
 
 Graphic::~Graphic(void) {
-    glfwTerminate();
     return ;
 }
 
@@ -117,4 +117,9 @@ eKey Graphic::processInput(Camera * camera) {
 
 
     return input;
+}
+
+void Graphic::terminate(void) {
+    glfwTerminate();
+    std::cout << "graphic terminate" << std::endl;
 }

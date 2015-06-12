@@ -8,6 +8,7 @@ Camera::Camera(void)
 
 Camera::~Camera(void)
 {
+    std::cout << "delete camera" << std::endl;
     return ;
 }
 

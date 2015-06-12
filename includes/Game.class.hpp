@@ -11,9 +11,10 @@ public:
     Game(void);
     ~Game(void);
 
+    void startGame(void);
+
 
 private:
-    void _gameLoop(void);
     Camera      _camera;
     std::list<Section *>  _sections;
 

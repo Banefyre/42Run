@@ -40,6 +40,7 @@ std::string Shader::loadShaderFile(std::string strFile)
 
 void Shader::initialize(std::string strVertexFile, std::string strFragmentFile)
 {
+
 	std::string strVShader, strFShader;
 
 	if ( !strVertexFile.length() || !strFragmentFile.length() )

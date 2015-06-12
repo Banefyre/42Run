@@ -13,6 +13,8 @@ public:
     static Graphic & instance(void);
     ~Graphic(void);
 
+    void terminate(void);
+
 
     void clear(void);
     void display(void);

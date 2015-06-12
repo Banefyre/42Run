@@ -1,9 +1,10 @@
 #include <Section.class.hpp>
 #include <TimeManager.class.hpp>
 
+#include <iostream>
+
 Section::Section(Model *model) : _m(model), _scale(1.0f), _rotation(0.0f)
 {
-
     return;
 }
 

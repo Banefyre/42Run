@@ -1,11 +1,11 @@
 #include <GL/glew.h>
 #include <Game.class.hpp>
-
+#include <iostream>
 
 int main(void) {
 
     Game game;
-    (void)game;
+    game.startGame();
 
     return 0;
 }
