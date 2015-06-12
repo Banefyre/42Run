@@ -12,6 +12,7 @@ public:
     ~Game(void);
 
     void startGame(void);
+    eSection randSection(void);
 
 
 private:

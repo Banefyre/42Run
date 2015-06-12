@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <Player.class.hpp>
+#include <time.h>
 
 Game::Game(void) {
 }
@@ -24,6 +25,13 @@ Game::~Game(void) {
     return ;
 }
 
+eSection Game::randSection(void)
+{
+    int section = (rand() % 3) + 1;
+    
+    return static_cast<eSection >(section);
+}
+
 void Game::startGame(void) {
 
     Graphic & g = Graphic::instance();
@@ -36,14 +44,22 @@ void Game::startGame(void) {
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
     Model playerModel ("models/nanosuit/nanosuit.obj", &s);
     Model m ("models/cluster/cluster.obj", &s);
+    Model k ("models/krabbs/krabbs.obj", &s);
+    Model f ("models/fighter/fighter.obj", &s);
+    Model d ("models/dragon/dragon.obj", &s);
 
+    std::map<eSection , Model *> models;
+    models[NABOO] = &f;
+    models[KRABBS] = &k;
+    models[DRAGON] = &d;
 
     Player player(&playerModel);
 
     glm::vec3 startPos(0.0f);
     for(int i = 0; i < SECTIONS; i++)
     {
-        Section * s = new Section(&m);
+        eSection rand = randSection();
+        Section * s = new Section(&m, rand, models[rand]);
         s->setPosition(startPos);
         startPos.z -= SECTIONSIZE;
         this->_sections.push_back(s);
@@ -77,8 +93,8 @@ void Game::startGame(void) {
             Section * front = this->_sections.front();
             this->_sections.pop_front();
             delete front;
-
-            Section * s = new Section(&m);
+            eSection rand = randSection();
+            Section * s = new Section(&m, rand, models[rand]);
             glm::vec3 pos = this->_sections.back()->getPosition();
             pos.z -= SECTIONSIZE;
             s->setPosition(pos);

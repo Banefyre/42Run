@@ -22,5 +22,11 @@ enum eKey {
 
 };
 
+enum eSection {
+    NABOO = 1,
+    KRABBS,
+    DRAGON
+};
+
 
 #endif
