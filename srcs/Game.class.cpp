@@ -8,6 +8,7 @@
 #include <TextManager.class.hpp>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <Player.class.hpp>
 
 Game::Game(void) {
 }
@@ -35,11 +36,11 @@ void Game::startGame(void) {
 
     Shader s;
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
-    //Model m ("models/nanosuit/nanosuit.obj", &s);
-
+    Model playerModel ("models/nanosuit/nanosuit.obj", &s);
     Model m ("models/cluster/cluster.obj", &s);
 
 
+    Player player(&playerModel);
 
     glm::vec3 startPos(0.0f);
     for(int i = 0; i < SECTIONS; i++)
@@ -71,11 +72,15 @@ void Game::startGame(void) {
                 this->_camera.moveCamera(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
                 break;
             case KEYLEFT:
-                this->_camera.strafe(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
+                //this->_camera.strafe(-1 * this->_camera.getSpeed() * TimeManager::instance().deltaTime);
+                player.moveLeft();
                 break;
             case KEYRIGHT:
-                this->_camera.strafe(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
+                //this->_camera.strafe(this->_camera.getSpeed() * TimeManager::instance().deltaTime);
+                player.moveRight();
                 break;
+            case KEYSPACE:
+                player.jump();
             default:
                 break;
         }
@@ -85,6 +90,8 @@ void Game::startGame(void) {
             (*it)->move();
             (*it)->draw(&this->_camera);
         }
+
+        player.draw(&this->_camera);
 
         if (this->_sections.front()->getPosition().z >= SECTIONSIZE)
         {

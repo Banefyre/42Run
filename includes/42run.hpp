@@ -17,6 +17,7 @@ enum eKey {
     KEYLEFT,
     KEYRIGHT,
     KEYESC,
+    KEYSPACE,
     KEYNONE
 
 };

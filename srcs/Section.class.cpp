@@ -25,10 +25,11 @@ glm::vec3 Section::getPosition(void)
 
 void Section::move(void)
 {
-    this->_position.z += (11.35f * TimeManager::instance().deltaTime) / 5.0f;
+    this->_position.z += (11.35f * TimeManager::instance().deltaTime) / 2.5f;
 }
 
 void Section::draw(Camera *camera)
 {
+
     this->_m->draw(camera, this->_position, this->_scale, this->_rotation);
 }
