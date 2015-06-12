@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 
 Game::Game(void) {
+
     this->_gameLoop();
 }
 
@@ -27,8 +28,14 @@ void Game::_gameLoop(void) {
     Model m ("models/cluster/cluster.obj", &s);
     TextManager & tm = TextManager::instance();
 
-    //m.setScale(glm::vec3(0.2f));
-
+    glm::vec3 startPos(0.0f);
+    for(int i = 0; i < SECTIONS; i++)
+    {
+        Section * s = new Section(&m);
+        s->setPosition(startPos);
+        startPos.z -= 11.35f;
+        this->_sections.push_back(s);
+    }
 
     // Create the projection matrix from our camera
     //									 FOV		    Aspect Ratio			   Near / Far Planes
@@ -37,11 +44,6 @@ void Game::_gameLoop(void) {
 
     //					        Position	         Yaw	 Pitch
     this->_camera.positionCamera(0, 0, 3,		0,		0);
-
-
-    glm::vec3 position(0.0f);
-    glm::vec3 scale(1.0f);
-    glm::vec3 rotation(0.0f);
 
 
 
@@ -54,8 +56,6 @@ void Game::_gameLoop(void) {
         TimeManager::instance().calculateFrameRate(false);
 
         g.clear();
-
-
 
         switch ( input )
         {
@@ -75,8 +75,11 @@ void Game::_gameLoop(void) {
                 break;
         }
 
-
-        m.draw(&this->_camera, position, scale, rotation);
+        std::list<Section *>::iterator it;
+        for (it = this->_sections.begin() ; it != this->_sections.end() ; it ++) {
+            (*it)->move();
+            (*it)->draw(&this->_camera);
+        }
 
         tm.print("Hello world", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 

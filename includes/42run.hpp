@@ -7,6 +7,7 @@
 
 #define WIDTH 1280
 #define HEIGHT 720
+#define SECTIONS 5
 
 enum eKey {
 
