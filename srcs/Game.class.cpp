@@ -41,7 +41,7 @@ void Game::startGame(void) {
     {
         Section * s = new Section(&m);
         s->setPosition(startPos);
-        startPos.z -= 11.35f;
+        startPos.z -= SECTIONSIZE;
         this->_sections.push_back(s);
     }
 
@@ -81,7 +81,21 @@ void Game::startGame(void) {
             (*it)->draw(&this->_camera);
         }
 
+        if (this->_sections.front()->getPosition().z >= SECTIONSIZE)
+        {
+            Section * front = this->_sections.front();
+            this->_sections.pop_front();
+            delete front;
+
+            Section * s = new Section(&m);
+            glm::vec3 pos = this->_sections.back()->getPosition();
+            pos.z -= SECTIONSIZE;
+            s->setPosition(pos);
+            this->_sections.push_back(s);
+        }
+
         //tm.print("Hello world", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+
         g.display();
     }
 }

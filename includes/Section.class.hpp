@@ -10,6 +10,7 @@ class Section
         Section(Model *m);
         ~Section(void);
         void setPosition(glm::vec3 pos);
+        glm::vec3 getPosition(void);
         void move(void);
         void draw(Camera *camera);
 

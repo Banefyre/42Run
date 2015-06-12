@@ -18,6 +18,11 @@ void Section::setPosition(glm::vec3 pos)
     this->_position = pos;
 }
 
+glm::vec3 Section::getPosition(void)
+{
+    return this->_position;
+}
+
 void Section::move(void)
 {
     this->_position.z += (11.35f * TimeManager::instance().deltaTime) / 5.0f;
