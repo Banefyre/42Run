@@ -77,3 +77,7 @@ void Player::jump(void) {
         this->_isJumpingDown = false;
     }
 }
+
+glm::vec3 &Player::getPosition(void) {
+    return _position;
+}

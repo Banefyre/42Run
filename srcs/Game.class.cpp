@@ -49,6 +49,7 @@ void Game::startGame(void) {
     Model f ("models/fighter/fighter.obj", &s);
     Model d ("models/dragon/dragon.obj", &s);
     Model sn ("models/sonic/sonic.obj", &s);
+    Model a ("models/apple/apple.obj", &s);
 
     std::map<eSection , Model *> models;
     models[NABOO] = &f;
@@ -62,7 +63,7 @@ void Game::startGame(void) {
     for(int i = 0; i < SECTIONS; i++)
     {
         eSection rands = randSection();
-        Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands]);
+        Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands], &a);
         s->setPosition(startPos);
         startPos.z -= SECTIONSIZE;
         this->_sections.push_back(s);
@@ -97,12 +98,14 @@ void Game::startGame(void) {
             this->_sections.pop_front();
             delete front;
             eSection rands = randSection();
-            Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands]);
+            Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands], &a);
             glm::vec3 pos = this->_sections.back()->getPosition();
             pos.z -= SECTIONSIZE;
             s->setPosition(pos);
             this->_sections.push_back(s);
         }
+
+        this->_sections.front()->takeApple(player.getPosition());
 
         distance += TimeManager::instance().deltaTime * 5.0f;
 

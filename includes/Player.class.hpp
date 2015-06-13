@@ -16,6 +16,8 @@ public:
     void moveRight(void);
     void jump(void);
 
+    glm::vec3 & getPosition(void);
+
 private:
     Model       *_m;
     glm::vec3   _position;

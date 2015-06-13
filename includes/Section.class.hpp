@@ -4,11 +4,12 @@
 #include <Model.class.hpp>
 #include <glm/glm.hpp>
 #include <42run.hpp>
+#include <list>
 
 class Section
 {
     public:
-        Section(Model *m, eSection type, Model * obstacle);
+        Section(Model *m, eSection type, Model * obstacle, Model * apple);
         ~Section(void);
         void setPosition(glm::vec3 pos);
         glm::vec3 & getPosition(void);
@@ -16,9 +17,12 @@ class Section
         void move(void);
         void draw(Camera *camera);
 
+        bool takeApple(glm::vec3 & playerPos);
+
     private:
         Model       *_m;
         Model       *_obstacle;
+        Model       *_apple;
         eSection    _type;
         glm::vec3   _position;
         glm::vec3   _scale;
@@ -27,11 +31,16 @@ class Section
         glm::vec3   _oScale;
         glm::vec3   _oRotation;
 
+        glm::vec3   _appleRot;
+        glm::vec3   _appleScale;
+        std::list<glm::vec3> _applesPos;
+
 
         void    _initNaboo(void);
         void    _initKrabbs(void);
         void    _initDragon(void);
         void    _initSonic(void);
+
 
         void    _posNaboo(glm::vec3 pos);
         void    _posKrabbs(glm::vec3 pos);
