@@ -74,8 +74,8 @@ void Section::_initKrabbs(void) {
 }
 
 void Section::_initDragon(void) {
-    this->_oScale = glm::vec3(1.0f);
-    this->_oRotation = glm::vec3(0.0f);
+    this->_oScale = glm::vec3(0.7f);
+    this->_oRotation = glm::vec3(0.0f, glm::radians(180.0f), 0.0f);
 }
 
 void Section::_initSonic(void) {
@@ -86,7 +86,8 @@ void Section::_initSonic(void) {
 void Section::_posDragon(glm::vec3 pos) {
 
     this->_oPosition = pos;
-    //this->_oPosition.x -= 1.0f;
+    this->_oPosition.y -= 0.55f;
+    this->_oPosition.x += 0.5f;
 
 }
 

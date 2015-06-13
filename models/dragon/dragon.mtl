@@ -109,7 +109,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Downloads/Dragon/texture/SMPL_Wings_Color.jpg
+map_Kd SMPL_Wings_Color.jpg
 
 newmtl 4_Eyes
 Ns 0.000000
