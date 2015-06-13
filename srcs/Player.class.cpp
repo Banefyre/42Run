@@ -11,7 +11,8 @@ Player::~Player(void) {
 }
 
 void Player::draw(Camera *camera) {
-
+    std::cout << "X: " << this->_position.x << std::endl;
+    std::cout << "Z: " << this->_position.z << std::endl;
     if (this->_isJumpingUp) {
         this->_position.y += TimeManager::instance().deltaTime * 2.0f;
         this->_rotation.y += (glm::radians(360.0f) * TimeManager::instance().deltaTime) * 1.065f * 2.0f;

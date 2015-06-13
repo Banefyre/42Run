@@ -74,13 +74,28 @@ void Section::draw(Camera *camera)
 
 }
 
+bool Section::collide(Model &player)
+{
+
+    typedef void (Section::*COL)();
+    static std::map<eSection, COL> map = {
+            { NABOO, &Section::_colNaboo },
+            { DRAGON, &Section::_colDragon },
+            { KRABBS, &Section::_colKrabbs },
+            { SONIC, &Section::_colSonic }
+    };
+
+    COL ft = map[_type];
+    return (this->*ft)(player);
+}
+
 void Section::_initNaboo(void) {
     this->_oScale = glm::vec3(0.4f);
     this->_oRotation = glm::vec3(0.0f, glm::radians(85.0f), 0.0f);
 }
 
 void Section::_initKrabbs(void) {
-    this->_oScale = glm::vec3(0.5f);
+    this->_oScale = glm::vec3(0.8f);
     this->_oRotation = glm::vec3(0.0f);
 }
 
@@ -152,5 +167,21 @@ bool Section::takeApple(glm::vec3 & playerPos) {
         }
     }
 
+    return false;
+}
+
+bool Section::_colNaboo(Model &p) {
+    return false;
+}
+
+bool Section::_colKrabbs(Model &p) {
+    return false;
+}
+
+bool Section::_colDragon(Model &p) {
+    return false;
+}
+
+bool Section::_colSonic(Model &p) {
     return false;
 }

@@ -16,6 +16,7 @@ class Section
         glm::vec3 & getOPosition(void);
         void move(void);
         void draw(Camera *camera);
+        bool collide(Model &player);
 
         bool takeApple(glm::vec3 & playerPos);
 
@@ -46,6 +47,11 @@ class Section
         void    _posKrabbs(glm::vec3 pos);
         void    _posDragon(glm::vec3 pos);
         void    _posSonic(glm::vec3 pos);
+
+        bool    _posNaboo(Model &p);
+        bool    _posKrabbs(Model &p);
+        bool    _posDragon(Model &p);
+        bool    _posSonic(Model &p);
 
 };
 
