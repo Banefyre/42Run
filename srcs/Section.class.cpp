@@ -41,12 +41,12 @@ void Section::setPosition(glm::vec3 pos)
 
 }
 
-glm::vec3 Section::getPosition(void)
+glm::vec3 & Section::getPosition(void)
 {
     return this->_position;
 }
 
-glm::vec3 Section::getOPosition(void)
+glm::vec3 & Section::getOPosition(void)
 {
     return this->_oPosition;
 }

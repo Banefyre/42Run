@@ -44,6 +44,7 @@ void Game::startGame(void) {
     s.initialize("shaders/Shader.vertex", "shaders/Shader.fragment");
     Model playerModel ("models/nanosuit/nanosuit.obj", &s);
     Model m ("models/cluster/cluster.obj", &s);
+    Model m2 ("models/cluster2/cluster2.obj", &s);
     Model k ("models/krabbs/krabbs.obj", &s);
     Model f ("models/fighter/fighter.obj", &s);
     Model d ("models/dragon/dragon.obj", &s);
@@ -60,8 +61,8 @@ void Game::startGame(void) {
     glm::vec3 startPos(0.0f);
     for(int i = 0; i < SECTIONS; i++)
     {
-        eSection rand = randSection();
-        Section * s = new Section(&m, rand, models[rand]);
+        eSection rands = randSection();
+        Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands]);
         s->setPosition(startPos);
         startPos.z -= SECTIONSIZE;
         this->_sections.push_back(s);
@@ -95,8 +96,8 @@ void Game::startGame(void) {
             Section * front = this->_sections.front();
             this->_sections.pop_front();
             delete front;
-            eSection rand = randSection();
-            Section * s = new Section(&m, rand, models[rand]);
+            eSection rands = randSection();
+            Section * s = new Section((rand() % 2) == 0 ? &m : &m2, rands, models[rands]);
             glm::vec3 pos = this->_sections.back()->getPosition();
             pos.z -= SECTIONSIZE;
             s->setPosition(pos);
