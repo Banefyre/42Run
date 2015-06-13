@@ -117,9 +117,9 @@ void Section::_posDragon(glm::vec3 pos) {
     this->_oPosition.x += 0.5f;
 
     if (rand() % 2 == 0)
-        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z + 1.85f));
+        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z + 2.0f));
     if (rand() % 2 == 0)
-        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z - 1.85f));
+        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z - 2.0f));
     if (rand() % 2 == 0)
         this->_applesPos.push_back(glm::vec3(_oPosition.x - 0.9f, -0.55f, _oPosition.z));
 
@@ -139,11 +139,11 @@ void Section::_posKrabbs(glm::vec3 pos) {
     this->_oPosition.x -= 0.5f;
 
     if (rand() % 2 == 0)
-        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z + 1.85f));
+        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z + 2.0f));
     if (rand() % 2 == 0)
-        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z - 1.85f));
+        this->_applesPos.push_back(glm::vec3(_oPosition.x, -0.55f, _oPosition.z - 2.0f));
     if (rand() % 2 == 0)
-        this->_applesPos.push_back(glm::vec3(_oPosition.x + 0.9f, -0.55f, _oPosition.z));
+        this->_applesPos.push_back(glm::vec3(_oPosition.x + 1.2f, -0.55f, _oPosition.z));
 
 }
 
@@ -186,7 +186,7 @@ bool Section::_colKrabbs(Player *p) {
 }
 
 bool Section::_colDragon(Player *p) {
-    if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.7f)) {
+    if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.6f)) {
         return true;
     }
     return false;

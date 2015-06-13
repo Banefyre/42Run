@@ -110,7 +110,9 @@ void Game::startGame(void) {
         if (this->_sections.front()->takeApple(player.getPosition()))
             appleCount++;
 
-        this->_sections.front()->collide(&player);
+        if (this->_sections.front()->collide(&player))
+            break ;
+
 
 
         distance += TimeManager::instance().deltaTime * 5.0f;
@@ -120,4 +122,15 @@ void Game::startGame(void) {
 
         g.display();
     }
+
+    while (g.processInput(&this->_camera, &player)) {
+        g.clear();
+
+        tm.print("SCORE: " + std::to_string((int)distance) + " x " + std::to_string(appleCount) + " = " + std::to_string((int)distance * appleCount), 50.0f, 400.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+        tm.print(std::to_string((int)distance), 15.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+        tm.print(std::to_string(appleCount), 1200.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 1.0f));
+
+        g.display();
+    }
+
 }
