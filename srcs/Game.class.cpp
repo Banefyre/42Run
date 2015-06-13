@@ -59,7 +59,7 @@ void Game::startGame(void) {
 
     Player player(&playerModel);
 
-    glm::vec3 startPos(0.0f);
+    glm::vec3 startPos(0.0f, 0.0f, -7.0f);
     for(int i = 0; i < SECTIONS; i++)
     {
         eSection rands = randSection();
@@ -116,7 +116,6 @@ void Game::startGame(void) {
         distance += TimeManager::instance().deltaTime * 5.0f;
 
         tm.print(std::to_string((int)distance), 15.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-
         tm.print(std::to_string(appleCount), 1200.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 1.0f));
 
         g.display();
