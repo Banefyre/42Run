@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <42run.hpp>
 #include <list>
+#include <Player.class.hpp>
 
 class Section
 {
@@ -16,7 +17,7 @@ class Section
         glm::vec3 & getOPosition(void);
         void move(void);
         void draw(Camera *camera);
-        bool collide(Model &player);
+        bool collide(Player * player);
 
         bool takeApple(glm::vec3 & playerPos);
 
@@ -48,10 +49,10 @@ class Section
         void    _posDragon(glm::vec3 pos);
         void    _posSonic(glm::vec3 pos);
 
-        bool    _posNaboo(Model &p);
-        bool    _posKrabbs(Model &p);
-        bool    _posDragon(Model &p);
-        bool    _posSonic(Model &p);
+        bool    _colNaboo(Player * player);
+        bool    _colKrabbs(Player * player);
+        bool    _colDragon(Player * player);
+        bool    _colSonic(Player * player);
 
 };
 

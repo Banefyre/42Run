@@ -2,6 +2,7 @@
 #include <TimeManager.class.hpp>
 #include <map>
 #include <iostream>
+#include <cmath>
 
 Section::Section(Model *model, eSection type, Model * obstacle, Model *apple) : _m(model), _obstacle(obstacle), _apple(apple), _type(type), _scale(1.0f), _rotation(0.0f), _appleRot(0.0f), _appleScale(0.5f)
 {
@@ -74,10 +75,10 @@ void Section::draw(Camera *camera)
 
 }
 
-bool Section::collide(Model &player)
+bool Section::collide(Player * player)
 {
 
-    typedef void (Section::*COL)();
+    typedef bool (Section::*COL)(Player *);
     static std::map<eSection, COL> map = {
             { NABOO, &Section::_colNaboo },
             { DRAGON, &Section::_colDragon },
@@ -170,18 +171,25 @@ bool Section::takeApple(glm::vec3 & playerPos) {
     return false;
 }
 
-bool Section::_colNaboo(Model &p) {
+bool Section::_colNaboo(Player *p) {
+    (void)p;
     return false;
 }
 
-bool Section::_colKrabbs(Model &p) {
+bool Section::_colKrabbs(Player *p) {
+    if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.9f)) {
+        std::cout << "COLLIDED !" << std::endl;
+        return true;
+    }
     return false;
 }
 
-bool Section::_colDragon(Model &p) {
+bool Section::_colDragon(Player *p) {
+    (void)p;
     return false;
 }
 
-bool Section::_colSonic(Model &p) {
+bool Section::_colSonic(Player *p) {
+    (void)p;
     return false;
 }

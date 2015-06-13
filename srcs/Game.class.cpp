@@ -110,6 +110,8 @@ void Game::startGame(void) {
         if (this->_sections.front()->takeApple(player.getPosition()))
             appleCount++;
 
+        this->_sections.front()->collide(&player);
+
 
         distance += TimeManager::instance().deltaTime * 5.0f;
 
