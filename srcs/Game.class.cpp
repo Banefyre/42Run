@@ -77,6 +77,8 @@ void Game::startGame(void) {
     //					        Position	         Yaw	 Pitch
     this->_camera.positionCamera(0, 0.9f, 3.0f,		0.0f,		0.2f);
 
+    int appleCount = 0;
+
 
     while (g.processInput(&this->_camera, &player)) {
 
@@ -105,11 +107,15 @@ void Game::startGame(void) {
             this->_sections.push_back(s);
         }
 
-        this->_sections.front()->takeApple(player.getPosition());
+        if (this->_sections.front()->takeApple(player.getPosition()))
+            appleCount++;
+
 
         distance += TimeManager::instance().deltaTime * 5.0f;
 
         tm.print(std::to_string((int)distance), 15.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+        tm.print(std::to_string(appleCount), 1200.0f, 15.0f, 1.0f, glm::vec3(1.0f, 0.0f, 1.0f));
 
         g.display();
     }
