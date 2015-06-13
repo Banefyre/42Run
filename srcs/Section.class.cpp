@@ -178,14 +178,17 @@ bool Section::_colNaboo(Player *p) {
 
 bool Section::_colKrabbs(Player *p) {
     if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.9f)) {
-        std::cout << "COLLIDED !" << std::endl;
+        std::cout << "COLLIDED w Krabbs !" << std::endl;
         return true;
     }
     return false;
 }
 
 bool Section::_colDragon(Player *p) {
-    (void)p;
+    if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.7f)) {
+        std::cout << "COLLIDED w Raegal !" << std::endl;
+        return true;
+    }
     return false;
 }
 
