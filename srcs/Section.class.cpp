@@ -146,7 +146,7 @@ void Section::_posSonic(glm::vec3 pos) {
 
 bool Section::takeApple(glm::vec3 & playerPos) {
     for (std::list<glm::vec3>::iterator it = this->_applesPos.begin() ; it != this->_applesPos.end() ; ++it) {
-        if (glm::distance(playerPos, (*it)) <= 0.3f) {
+        if (glm::distance(playerPos, (*it)) <= 0.35f) {
             _applesPos.erase(it);
             return true ;
         }
