@@ -11,8 +11,8 @@ class Section
         Section(Model *m, eSection type, Model * obstacle);
         ~Section(void);
         void setPosition(glm::vec3 pos);
-        glm::vec3 getPosition(void);
-        glm::vec3 getOPosition(void);
+        glm::vec3 & getPosition(void);
+        glm::vec3 & getOPosition(void);
         void move(void);
         void draw(Camera *camera);
 
