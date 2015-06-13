@@ -186,13 +186,16 @@ bool Section::_colKrabbs(Player *p) {
 
 bool Section::_colDragon(Player *p) {
     if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.7f)) {
-        std::cout << "COLLIDED w Raegal !" << std::endl;
+        std::cout << "COLLIDED w Dragon !" << std::endl;
         return true;
     }
     return false;
 }
 
 bool Section::_colSonic(Player *p) {
-    (void)p;
+    if ((std::fabs(p->getPosition().z - this->getOPosition().z) < 1.0f) && (std::fabs(p->getPosition().x - this->getOPosition().x) < 0.5f)) {
+        std::cout << "COLLIDED w Sonic !" << std::endl;
+        return true;
+    }
     return false;
 }
